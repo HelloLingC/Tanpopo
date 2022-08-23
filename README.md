@@ -5,15 +5,15 @@ A blog application based on [expressjs](https://expressjs.com/), using [tailwind
 
 [中文版](./README_CN.md)
 
-## Usage
-### Quick Start
+# Usage
+## Quick Start
 Clone this repository into your specified folder.
-`$ git clone https://github.com/HelloLingC/blog.git`
+```$ git clone https://github.com/HelloLingC/blog.git```
 
 Install [Nodejs](https://nodejs.org/) (if you haven't)
 
 Download and install dependencies with following command.
-`$ npm install`
+```$ npm install```
 
 Modify `/src/config/server.config.js` with your own configurations.
 
