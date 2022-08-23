@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include("./common/header.html") %>
+    <link rel="stylesheet" href="css/home.css">
+</head>
+
+<body>
+    <div class="parallax">
+        <div class="home-header">
+            <div class="home-header-foreground z-10 text-white">
+                <img class="rounded-full object-cover h-44 w-44" src="/img/gravatar.png">
+                <h1 class="text-6xl md:text-9xl mt-5 mb-4">LingC</h1>
+                <p class="text-lg font-mono">Fish's doom if not salted.</p>
+            </div>
+            <div class="w-full h-screen home-header-img-cover text-center">
+            </div>
+            <img class="w-full object-cover home-header-img pointer-events-none" src="/img/tanpopo.jpg" alt="background"
+                draggable="false">
+        </div>
+        <div class="home-content">
+            <header class="">
+                <nav class="">
+                    <input type="checkbox" id="home-nav-switcher">
+                    <label class="home-nav-menu-btn" for="home-nav-switcher"><i class="fa-solid fa-bars"></i></label>
+                    <h1 class="home-top-title inline">Fiswh</h1>
+                    <ul class="text-lg">
+                        <li><a id="home-btn" class="active">Home</a></li>
+                        <li><a href="/">Category</a></li>
+                        <li><a href="/">Feedback</a></li>
+                        <li><a id="about-btn">About</a></li>
+                    </ul>
+                </nav>
+            </header>
+
+            <div id="main-content-lay">
+                <ul class="grid md:grid-cols-2 lg:mx-60">
+                    <% for(post of posts) { %>
+                    <li class="height-full overflow-auto">
+                        <a href="/post/<%= post._id %>" class="active:bg-white hover:bg-white">
+                            <div class="p-8 m-6 text-center post-item-outlay">
+                                <h1 class="text-4xl"><i class="twa twa-<%= post.emoji %>"></i> <%= post.title %></h1>
+                            </div>
+                        </a>
+                    </li>
+                    <% } %>
+                </ul>
+            </div>
+        </div>
+
+        <%- include("./common/footer.html") %>
+    </div>
+    <script>
+        $(() => {
+            $("parallax").scroll(() => {
+                console.log("s")
+            });
+        })
+
+        const stack = new Array();
+        window.onpopstate = (event) => {
+            if(stack.length == 1) {
+                // Didnt set first page.
+            } else {
+                onLocationChanged(stack[stack.length - 2], stack.pop())
+            }
+        }
+        function onLocationChanged(current, last) {
+            $("#main-content-lay").html(current);
+        }
+        function setFirstPage(data) {
+            if (data) {
+                stack[0] = data;
+            }
+        }
+        function forward(data, url) {
+            stack[stack.length] = data;
+            window.history.pushState(data, "", url)
+        }
+
+        setFirstPage("F")
+        $("#home-btn").click(() => {
+            $.get("/home", (data, status) => {
+                if (data) {
+                    $("#main-content-lay").html(data);
+                    document.title = "About"
+                    forward(data, "/")
+                }
+            });
+        })
+        $("#about-btn").click(() => {
+            $.get("/about", (data, status) => {
+                if (data) {
+                    $("#main-content-lay").html(data);
+                    document.title = "About"
+                    forward(data, "/about")
+                }
+            });
+        })
+    </script>
+</body>
+
+</html>

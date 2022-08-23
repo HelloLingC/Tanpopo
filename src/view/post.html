@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include("./common/header.html") %>
+    <style>
+        .header {
+            backdrop-filter: blur(10);
+        }
+
+        .content-lay {
+            border-radius: 50px;
+            background: #ffffff;
+            box-shadow: 20px 20px 60px #d9d9d9,
+                -20px -20px 60px #ffffff;
+        }
+
+        .license {
+            border-radius: 50px;
+            background: #ffffff;
+            box-shadow: 7px 7px 58px #d9d9d9,
+                -7px -7px 58px #ffffff;
+        }
+    </style>
+</head>
+
+<body>
+    <header class="fixed p-5 w-full header">
+        <span class="p-5 font-bold">LingC</span>
+    </header>
+
+    <div class="flex flex-col pt-16">
+        <h1 class="text-center px-28 py-8 text-7xl content-lay inline-block self-center"><%= post.title %></h1>
+        <div class="license absolute inline-block w-56 p-5">
+            <a class="inline-block" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+                <img alt="Creative Commons Licence" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
+                <br />
+                This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
+                License.
+            </a>
+        </div>
+        <div class="md:px-52 py-12 mx-32 text-2xl">
+            <%- content %>
+        </div>
+    </div>
+
+
+    <div id="disqus_thread">
+
+    </div>
+    <script>
+        /**
+         *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+         *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
+
+        var disqus_config = function () {
+            this.page.url = "PAGE_URL"; // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = "post_" + post
+                ._id; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+        };
+
+        (function () { // DON'T EDIT BELOW THIS LINE
+            var d = document,
+                s = d.createElement('script');
+            s.src = 'https://lingc.disqus.com/embed.js';
+            s.setAttribute('data-timestamp', +new Date());
+            (d.head || d.body).appendChild(s);
+        })();
+    </script>
+    <noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by
+            Disqus.</a></noscript>
+</body>
+
+</html>

@@ -1,0 +1,11 @@
+<ul class="grid md:grid-cols-2 lg:mx-60">
+    <% for(post of posts) { %>
+    <li class="height-full overflow-auto">
+        <a href="/post/<%= post._id %>" class="active:bg-white hover:bg-white">
+            <div class="p-8 m-6 text-center post-item-outlay">
+                <h1 class="text-4xl"><i class="twa twa-<%= post.emoji %>"></i> <%= post.title %></h1>
+            </div>
+        </a>
+    </li>
+    <% } %>
+</ul>

@@ -1,0 +1,21 @@
+
+.login-top-title {
+    margin: 3.5rem 0;
+}
+
+.login-outside-lay {
+    
+}
+
+.login-card-lay {
+    /* Only works for inline elements inside maybe. */
+    margin: 0 auto;
+    width: 28rem;
+    text-align: center;
+    box-shadow: 0 10px 6px -6px rgba(30, 30, 30, 0.1), 12px 0 8px -8px rgba(50, 50, 50, 0.1);
+    transform: all .2s ease-in-out;
+}
+.input-box {
+    margin: 0 auto;;
+    
+}

@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <%- include("./common/header.html") %> 
+    </head>
+    <body>
+        <div class="p-5 text-white border bg-red-500 md:m-7">
+            <h1 class="text-center text-5xl"><i class="twa twa-3x twa-crying-face"></i></h1>
+            <h1 class="text-center text-4xl font-sans mt-5">Something went wrong</h1>
+            <% if(typeof(info) == "undefined"){ %>
+                <h4>Unknown error happened</h4>
+            <% } else { %>
+                <h4 class="text-2xl px-6 mt-5 md:ml-32"><%= info %></h4>
+            <% } %>   
+            
+        </div>
+    </body>
+</html>

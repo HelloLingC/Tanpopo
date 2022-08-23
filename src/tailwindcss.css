@@ -1,0 +1,7 @@
+/* 
+Building command
+npx tailwindcss -i ./src/tailwindcss.css -o ./src/public/dist/output.css --watch
+ */
+@tailwind base;
+@tailwind components;
+@tailwind utilities;

@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <%- include("../common/header.html") %>
+    <style>
+        .btn-grad {
+            background-image: linear-gradient(to right, #DA22FF 0%, #9733EE 51%, #DA22FF 100%);
+            margin: 10px;
+            padding: 15px 45px;
+            text-align: center;
+            text-transform: uppercase;
+            transition: 0.5s;
+            background-size: 200% auto;
+            color: white;
+            box-shadow: 0 0 20px #eee;
+            border-radius: 10px;
+            display: block;
+        }
+
+        .btn-grad:hover {
+            background-position: right center;
+            /* change the direction of the change here */
+            color: #fff;
+            text-decoration: none;
+        }
+    </style>
+</head>
+
+<body>
+    <div class="flex flex-col">
+        <h1 class="leading-10 p-5 text-5xl border-b-2 border-slate-400">Post Controller</h1>
+
+        <ul>
+            <% for(post of posts) { %>
+            <li><%= post.title %> | <%= post._id %>  </li>
+            <% } %>
+        </ul>
+
+        <div class="flex flex-col content-center mt-4">
+            <input id="post-title-input" class="w-1/2 mx-auto text-2xl p-2 border-2" placeholder="Title" name="Title">
+            <textarea id="post-content-input" class="resize-none rounded-md w-1/2 mx-auto text-2xl p-2 h-72 border-2"
+                placeholder="Post content" name="Content"></textarea>
+
+            <button id="post-publish-btn" class="my-9 border rounded-lg btn-grad md:w-52 mx-auto">Publish</button>
+        </div>
+    </div>
+
+    <script>
+        $("#post-publish-btn").click(() => {
+            const title = $("#post-title-input").val();
+            const content = $("#post-content-input").val();
+            $.post("/post/create", {
+                    title: title,
+                    content: content
+                })
+                .done((data) => {
+                    alert(data);
+                });
+        });
+    </script>
+</body>
+
+</html>
