@@ -49,8 +49,8 @@ mongoose.connect(process.env.DB_HOST || serverConfig.DB_HOST, {
     useUnifiedTopology: true
 })
 .then(() => {
-    console.log("Connection to Mongodb successfully")
+    console.log("Connect to Mongodb successfully")
 })
 .catch((err) => {
-    console.log("Mongodb error: " + err)
+    console.log("Connection to Mongodb error: " + err)
 })

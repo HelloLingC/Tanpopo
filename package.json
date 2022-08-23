@@ -8,7 +8,7 @@
     "dev": "npx tailwindcss -i ./src/tailwindcss.css -o ./src/public/dist/output.css --watch"
   },
   "author": "LingC",
-  "license": "ISC",
+  "license": "GPL v3",
   "dependencies": {
     "body-parser": "^1.20.0",
     "ejs": "^3.1.8",
