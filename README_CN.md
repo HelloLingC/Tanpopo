@@ -1,4 +1,4 @@
-# blog
+# Tanpopo
 一个基于 [expressjs](https://expressjs.com/) ，使用 tailwindcss 作为前端的博客应用。
 
 # 使用
