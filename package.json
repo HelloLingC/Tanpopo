@@ -1,7 +1,7 @@
 {
-  "name": "blog",
+  "name": "Tanpopo",
   "version": "1.0.0",
-  "description": "",
+  "description": "A simple blog.",
   "main": "server.js",
   "scripts": {
     "start": "node ./src/server.js",
