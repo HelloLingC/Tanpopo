@@ -3,6 +3,7 @@
 
 <head>
     <%- include("./common/header.html") %>
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
     <link rel="stylesheet" href="css/home.css">
 </head>
 
@@ -26,10 +27,10 @@
                     <label class="home-nav-menu-btn" for="home-nav-switcher"><i class="fa-solid fa-bars"></i></label>
                     <h1 class="home-top-title inline">Fiswh</h1>
                     <ul class="text-lg">
-                        <li><a id="home-btn" class="active">Home</a></li>
-                        <li><a href="/">Category</a></li>
-                        <li><a href="/">Feedback</a></li>
-                        <li><a id="about-btn">About</a></li>
+                        <li><a href="" id="home-btn" class="active">Home</a></li>
+                        <li><a href="">Category</a></li>
+                        <li><a href="">Feedback</a></li>
+                        <li><a href="" id="about-btn">About</a></li>
                     </ul>
                 </nav>
             </header>
@@ -44,28 +45,42 @@
 
     <script>
         // Navigation Stack Manager
-        // Single Stack Mode
-        const stack = new Array();
+        // Keep the order of each page but not reload the cached data
+        const stacks = new Array(); // value: url
+        const stackDatas = {}; // key: url, value: data
         window.onpopstate = (event) => {
-            if (stack.length == 1) {
-                // Didnt set first page.
-            } else {
-                onLocationChanged(stack[stack.length - 2], stack.pop())
-            }
+            onLocationChanged(stacks[stacks.length - 2], stacks.pop())
         }
 
         function onLocationChanged(current, last) {
-            $("#main-content-lay").html(current);
-        }
-
-        var pendingStack;
-        function createStack(name) {
-            pendingStack = name;
+            let data = stackDatas[current]
+            $("#main-content-lay").html(data);
         }
 
         function forward(data, url) {
-            stack[stack.length] = data;
+            stacks[stacks.length] = url;
             window.history.pushState(data, "", url)
+        }
+
+        async function loadPage(url) {
+            if (!url) {
+                url = "/"
+            }
+            if (stackDatas[url]) {
+                var data = stackDatas[url];
+            } else {
+                let res = await axios.get(
+                    url, {
+                        headers: {
+                            "Partial-Content": "1"
+                        }
+                    }
+                );
+                var data = res.data;
+                stackDatas[url] = data
+            }
+            $("#main-content-lay").html(data);
+            forward(data, url)
         }
     </script>
 
@@ -75,42 +90,19 @@
                 console.log("s")
             });
         })
-
-        $.get({
-            url: "/",
-            headers: {
-                "Partial-Content": "1"
-            },
-            success: (data, status) => {
-                $("#main-content-lay").html(data);
-                forward(data, "")
-            }
-        })
+        loadPage();
 
         $("#home-btn").click(() => {
-            $.get({
-                url: "/",
-                headers: {
-                    "Partial-Content": "1"
-                },
-                success: (data, status) => {
-                    if (data) {
-                        $("#main-content-lay").html(data);
-                        document.title = "Home"
-                        forward(data, "/")
-                    }
-                }
-            })
+            loadPage()
+            // returning false in click event listener is in order to
+            // not load original page(whose path is "/" ) after
+            // proc @loadPage executing.
+            return false;
         })
 
         $("#about-btn").click(() => {
-            $.get("/about", (data, status) => {
-                if (data) {
-                    $("#main-content-lay").html(data);
-                    document.title = "About"
-                    forward(data, "/about")
-                }
-            });
+            loadPage("/about")
+            return false;
         })
     </script>
 </body>
