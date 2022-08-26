@@ -1,20 +1,36 @@
 var Schema = require("mongoose").Schema;
 const mongoose  = require("mongoose");
+const counter = require("./counter");
 
-exports.name = "Post";
+/*
+ * @Return a promise
+ */
+exports.createPost = async (title, content) => {
+    const postDoc = mongoose.model("Post", schema)();
+    postDoc._id = await counter.useCounter(counter.POST_COUNTER_NAME);
+    postDoc.title = title;
+    postDoc.content = content;
+    postDoc.createdTime = new Date(Date.now());
+    postDoc.lastUpdatedTime = new Date(Date.now());
+    postDoc.viewNum = 0;
+    postDoc.likeNum = 0;
+    postDoc.isHidden = false;
+    return postDoc.save();
+}
 
 exports.findPostById = async (id) => {
-    const model = mongoose.model(this.name, this.schema)
+    const model = mongoose.model("Post", schema)
     const post = await model.findById(id).exec();
     return post;
 }
 
-/* Get all of the posts limited by page number, sorted with desc
+/* 
+ * Get all of the posts limited by page number, sorted with desc
  * If page argument is undifined, return posts without limition
- * Return a promise 
-*/
+ * @Return a promise 
+ */
 exports.findPost = async (page) => {
-    const query = mongoose.model(this.name, this.schema).find();
+    const query = mongoose.model("Post", schema).find();
     if(page) {
         query.withPage(page)
     }
@@ -23,7 +39,8 @@ exports.findPost = async (page) => {
     .exec();
 }
 
-exports.schema = new Schema({
+const schema = new Schema({
+    _id: Number,
     title: String,
     content: String,
     emoji: { type: String, default: "dizzy" },

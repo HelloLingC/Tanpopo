@@ -40,7 +40,7 @@ app.use((req, res) => {
 });
 
 app.listen(process.env.PORT, () => {
-    console.log(`App start running at port ${process.env.PORT||serverConfig.PORT}`);
+    console.log(`App start running at port ${process.env.PORT}`);
 });
 
 mongoose.Promise = global.Promise;
