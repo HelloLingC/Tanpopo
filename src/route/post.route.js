@@ -1,6 +1,5 @@
 const express = require("express");
 const mongoose  = require("mongoose");
-const serverConfig = require("../config/server.config");
 const router = express.Router();
 const post = require("../model/post");
 const md = require("markdown-it")();

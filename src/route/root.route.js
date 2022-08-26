@@ -1,5 +1,4 @@
 const express = require("express");
-const serverConfig = require("../config/server.config");
 const router = express.Router();
 const mongoose = require("mongoose");
 // Post Model
@@ -51,8 +50,8 @@ router.post("/login", (req, res) => {
     if (typeof (req.body.username) == "undefined") {
         res.send("No data")
     } else {
-        const username = process.env.ADMIN_USERNAME || serverConfig.ADMIN_USERNAME;
-        const password = process.env.ADMIN_PASSWORD || serverConfig.ADMIN_PASSWORD;
+        const username = process.env.ADMIN_USERNAME;
+        const password = process.env.ADMIN_PASSWORD;
         if (req.body.username === username && req.body.password === password) {
             req.session.userinfo = username;
             res.redirect("admin");
