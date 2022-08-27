@@ -11,22 +11,42 @@ A blog application based on [expressjs](https://expressjs.com/), using [tailwind
 
 # Usage
 
-## Quick Start
+## Installation
 
-Clone this repository into your specified folder.
+1. Clone this repository into your specified folder.
+    ```c
+    $ git clone https://github.com/HelloLingC/Tanpopo.git
+    ```
+2. Install [Nodejs](https://nodejs.org/) (if you haven't)
+3. Download and install dependencies with the following command.
+    ```c
+    $ npm install
+    ```
 
+## Configuration
+
+Create a file named `.env` in the root directory which has the same level with `package.json` file.
+
+Replicate the following text to `.env` file. 
 ```c
-$ git clone https://github.com/HelloLingC/Tanpopo.git
+HOST_NAME="example.com"
+PORT="5000"
+BANNED_HOST=""
+ADMIN_USERNAME="admin"
+ADMIN_PASSWORD="123456"
+# Should be completely random
+SESSION_SECRET="KW5w8FHVA3"
+# Your mongodb host name
+DB_HOST=""
+# Always be false in production
+DEBUG="false"
 ```
 
-Install [Nodejs](https://nodejs.org/) (if you haven't)
+if you're using something like heroku to host your application, you can merely set the `config vars` in app settings.
 
-Download and install dependencies with following command.
-
-```c
-$ npm install
-```
-
-Modify `/src/config/server.config.js` with your own configurations.
+## Deploy
 
 Deploy to your server that has the same environment.
+
+> _I suggest you to use [Heroku](https://www.heroku.com/) to deploy your application.
+It will be done easily and free._

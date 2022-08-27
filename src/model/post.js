@@ -2,6 +2,11 @@ var Schema = require("mongoose").Schema;
 const mongoose  = require("mongoose");
 const counter = require("./counter");
 
+let postOptions = {
+    title: "",
+    content: "",
+}
+
 /*
  * @Return a promise
  */
@@ -26,7 +31,8 @@ exports.findPostById = async (id) => {
 
 /* 
  * Get all of the posts limited by page number, sorted with desc
- * If page argument is undifined, return posts without limition
+ * If page argument is undefined, this proc will return posts
+ * without the limition
  * @Return a promise 
  */
 exports.findPost = async (page) => {

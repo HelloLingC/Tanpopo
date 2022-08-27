@@ -1,3 +1,4 @@
+const os = require("os");
 const path = require("path");
 const express = require("express");
 require("dotenv").config();
@@ -36,7 +37,7 @@ app.use(helmet.frameguard())
 app.use("/", rootRouter);
 app.use("/post/", postRouter);
 app.use((req, res) => {
-    res.render("restriction", { info: "404 Page Not Found: " + serverConfig.DOMAIN + req.originalUrl });
+    res.render("restriction", { info: "404 Page Not Found: " + process.env.HOST_NAME + req.originalUrl });
 });
 
 app.listen(process.env.PORT, () => {
