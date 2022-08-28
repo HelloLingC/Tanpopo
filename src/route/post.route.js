@@ -10,7 +10,6 @@ router.get("/:id", async (req, res) => {
     const p = await post.findPostById(id);
     const content = md.render(p.content);
     res.render("post", {
-        title: p.title,
         post: p,
         content: content
     });

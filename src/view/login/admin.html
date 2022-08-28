@@ -4,36 +4,20 @@
 <head>
     <%- include("../common/header.html") %>
     <style>
-        .btn-grad {
-            background-image: linear-gradient(to right, #DA22FF 0%, #9733EE 51%, #DA22FF 100%);
-            margin: 10px;
-            padding: 15px 45px;
-            text-align: center;
-            text-transform: uppercase;
-            transition: 0.5s;
-            background-size: 200% auto;
-            color: white;
-            box-shadow: 0 0 20px #eee;
-            border-radius: 10px;
-            display: block;
-        }
-
-        .btn-grad:hover {
-            background-position: right center;
-            /* change the direction of the change here */
-            color: #fff;
-            text-decoration: none;
+        .item-active {
+            background: rgb(243, 244, 246);
         }
     </style>
 </head>
 
 <body>
     <div class="flex flex-col">
-        <h1 class="leading-10 p-5 text-5xl border-b-2 border-slate-400">Post Controller</h1>
+        <h1 class="leading-10 p-5 text-2xl border-b-2 border-gray-100">Post Controller</h1>
 
-        <ul>
-            <% for(post of posts) { %>
-            <li><%= post.title %> | <%= post._id %>  </li>
+        <ul class="p-12">
+            <% for(let i =0; i < posts.length; i++) { %>
+            <li id="<%= i %>" onclick="onPostItemClicked(<%= i %>)"
+                class="post-item text-xl cursor-pointer select-none"><%= posts[i]._id %> | <%= posts[i].title %></li>
             <% } %>
         </ul>
 
@@ -47,13 +31,45 @@
     </div>
 
     <script>
+        function replacePostInto(title, content) {
+            $("#post-title-input").val(title)
+            $("#post-content-input").val(content)
+        }
+
+        var current;
+        function onPostItemClicked(seq) {
+            if (current !== undefined) {
+                $("#" + current).removeClass("item-active");
+                if (current == seq) {
+                    // Clear the selected state
+                    replacePostInto("", "");
+                    current = null;
+                    $("#post-publish-btn").text("Create");
+                    return
+                }
+            }
+            current = seq;
+            var posts = `<%- JSON.stringify(posts) %>`
+            posts = JSON.parse(posts);
+            replacePostInto(posts[seq].title, posts[seq].content);
+            $("#" + current).addClass("item-active")
+            $("#post-publish-btn").text("Update")
+        }
+
         $("#post-publish-btn").click(() => {
             const title = $("#post-title-input").val();
             const content = $("#post-content-input").val();
-            $.post("/post/create", {
-                    title: title,
-                    content: content
-                })
+            const data = { title: title,
+                    content: content }
+            if(current) {
+                // Post updating mode
+                $.post("/post/update", data)
+                    .done((res) => {
+                        alert(res);
+                    })
+                return;
+            }
+            $.post("/post/create", data)
                 .done((data) => {
                     alert(data);
                 });

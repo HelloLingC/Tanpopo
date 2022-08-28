@@ -1,4 +1,3 @@
-const os = require("os");
 const path = require("path");
 const express = require("express");
 require("dotenv").config();
@@ -11,7 +10,6 @@ const favicon = require("serve-favicon");
 const rootRouter = require("./route/root.route");
 const postRouter = require("./route/post.route");
 
-// https://git.heroku.com/fishblog01.git
 var app = express();
 app.use(favicon(path.join(__dirname, "public", "favicon.ico")));
 app.set("views", "./src/view");

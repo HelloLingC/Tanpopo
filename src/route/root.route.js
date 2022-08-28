@@ -4,13 +4,14 @@ const mongoose = require("mongoose");
 // Post Model
 const post = require("../model/post");
 
+const PARTIAL_CONTENT_HEADER = "Partial-Content";
 router.get("/", async (req, res) => {
     const posts = await post.findPost(1);
     if (!posts) {
         res.send("Error: Cannot get posts")
         return;
     }
-    if (req.get("Partial-Content") === "1") {
+    if (req.get(PARTIAL_CONTENT_HEADER) === "1") {
         res.render("page/home", {
             title: "鱼收藏家",
             posts: posts
@@ -47,7 +48,7 @@ router.get("/login", (req, res) => {
 });
 
 router.post("/login", (req, res) => {
-    if (typeof (req.body.username) == "undefined") {
+    if (!req.body.username || !req.body.password) {
         res.send("No data")
     } else {
         const username = process.env.ADMIN_USERNAME;
@@ -65,7 +66,11 @@ router.post("/login", (req, res) => {
 });
 
 router.get("/about", (req, res) => {
-    res.render("page/about");
+    if(req.get(PARTIAL_CONTENT_HEADER) == "1") {
+        res.render("page/about");
+    } else {
+        res.send("Developing");
+    }
 });
 
 module.exports = router;

@@ -16,10 +16,8 @@
         }
 
         .license {
-            border-radius: 50px;
-            background: #ffffff;
-            box-shadow: 7px 7px 58px #d9d9d9,
-                -7px -7px 58px #ffffff;
+            background-color: rgb(246, 248, 250);
+            border-radius: 11px;
         }
     </style>
 </head>
@@ -30,16 +28,16 @@
     </header>
 
     <div class="flex flex-col pt-16">
-        <h1 class="text-center px-28 py-8 text-7xl content-lay inline-block self-center"><%= post.title %></h1>
-        <div class="license absolute inline-block w-56 p-5">
-            <a class="inline-block" rel="license" href="http://creativecommons.org/licenses/by-nc-sa/4.0/">
+        <h1 class="text-center px-28 py-4 text-7xl content-lay inline-block self-center"><%= post.title %></h1>
+        <div class="self-center inline-block pt-16 max-w-xl">
+            <a class="rounded-2xl bg-gray-100 p-5 inline-block" rel="license"
+                href="http://creativecommons.org/licenses/by-nc-sa/4.0/" target="_blank">
                 <img alt="Creative Commons Licence" src="https://i.creativecommons.org/l/by-nc-sa/4.0/88x31.png" />
-                <br />
                 This work is licensed under a Creative Commons Attribution-NonCommercial-ShareAlike 4.0 International
                 License.
             </a>
         </div>
-        <div class="md:px-52 py-12 mx-32 text-2xl">
+        <div class="md:px-52 py-8 mx-32 text-2xl">
             <%- content %>
         </div>
     </div>
@@ -53,10 +51,10 @@
          *  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
          *  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables    */
 
+        var postId = "<%= post._id %>";
         var disqus_config = function () {
-            this.page.url = "PAGE_URL"; // Replace PAGE_URL with your page's canonical URL variable
-            this.page.identifier = "post_" + post
-                ._id; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+            this.page.url = "fishblog01.herokuapp.com"; // Replace PAGE_URL with your page's canonical URL variable
+            this.page.identifier = postId; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
         };
 
         (function () { // DON'T EDIT BELOW THIS LINE
